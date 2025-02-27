@@ -1,128 +1,159 @@
 import datetime
 from dataclasses import dataclass
+from typing import Optional
 
 from lib.interfaces.models import IModels
-from lib.tables.table import Table, SELECT_ALL
+from lib.tables.table import SELECT_ALL, Table
 from lib.types.t_integer import TInteger
 from lib.types.t_string import TString
 
 TABLE_NAME = 'CULT_BIENES'
 IGNORE = [
-    'objectid',
-    'shape',
-    'shape_length',
-    'shape_area'
+	'objectid',
+	'shape',
+	'shape_length',
+	'shape_area'
 ]
 
 
 @dataclass
-class CultBienesModel(IModels):
-    objectid: int = None
-    shape: bytearray = None
-    cd_codigo: str = None
-    tl_nombre: str = None
-    tl_dircalle: str = None
-    nm_dirnum: int = None
-    tl_localidad: str = None
-    tl_otros_nombres: str = None
-    cd_cod_ant: str = None
-    nm_utm_x: float = None
-    nm_utm_y: float = None
-    tl_geo_lon: str = None
-    tl_geo_lat: str = None
-    nm_altitud: int = None
-    nm_extension: int = None
-    cl_accesos: str = None
-    cl_des_general: str = None
-    nm_cronologia_inicio: int = None
-    nm_cronologia_fin: int = None
-    cl_just_atribucion: str = None
-    cl_des_bien: str = None
-    cl_des_muebles: str = None
-    cl_fuentes_escritas: str = None
-    cl_fuentes_carto: str = None
-    cl_fuentes_icono: str = None
-    cl_fuentes_orales: str = None
-    cl_uso_estado: str = None
-    tl_estado_porc_extraido: str = None
-    tl_figura2: str = None
-    tl_figura3: str = None
-    tl_figura4: str = None
-    tl_figura5: str = None
-    cl_observaciones: str = None
-    tl_autor: str = None
-    tl_supervisor: str = None
-    fc_autor_fecha_cumplimenta: datetime.datetime = None
-    fc_super_fecha_cumplimenta: datetime.datetime = None
-    geometry1_sk: str = None
-    tl_adjunto: str = None
-    id_referencia: int = None
-    tl_fecha_referencia: str = None
-    cd_yac_referencia: str = None
-    cd_catalogo_regional: str = None
-    cd_catalogo_urbanistico: str = None
-    fc_inscripcion_catalogo: datetime.datetime = None
-    tl_proteccion_arq_regional: str = None
-    tl_dir_postal: str = None
-    tl_dir_poligono: str = None
-    tl_referencia_catastral: str = None
-    cl_historia_bien: str = None
-    cl_obras_usos: str = None
-    tl_arca: str = None
-    cl_otros_codigos: str = None
-    fc_fecha_modificacion: datetime.datetime = None
-    shape_length: float = None
-    shape_area: float = None
-    geometry_bk: str = None
-    geometry_x_bk: float = None
-    geometry_y_bk: float = None
-    geometry_area_bk: float = None
+class CultBienesModel( IModels ):
+	"""
+	Modelo para representar un bien cultural.
+	"""
 
-    @staticmethod
-    def generate_cd_codigo(cult_var_municipios_cd_values: list[str]):
-        cd_value = '000' if len(cult_var_municipios_cd_values) > 1 else cult_var_municipios_cd_values[0]
-        data = Table(TABLE_NAME).select(
-            'CD_CODIGO',
-            where=f'''CD_CODIGO like {TString(f'CM/{cd_value}/%')}''',
-            order_by='CD_CODIGO DESC'
-        )
+	objectid: Optional[int] = None
+	shape: Optional[bytearray] = None
+	cd_codigo: Optional[str] = None
+	tl_nombre: Optional[str] = None
+	tl_dircalle: Optional[str] = None
+	nm_dirnum: Optional[int] = None
+	tl_localidad: Optional[str] = None
+	tl_otros_nombres: Optional[str] = None
+	cd_cod_ant: Optional[str] = None
+	nm_utm_x: Optional[float] = None
+	nm_utm_y: Optional[float] = None
+	tl_geo_lon: Optional[str] = None
+	tl_geo_lat: Optional[str] = None
+	nm_altitud: Optional[int] = None
+	nm_extension: Optional[int] = None
+	cl_accesos: Optional[str] = None
+	cl_des_general: Optional[str] = None
+	nm_cronologia_inicio: Optional[int] = None
+	nm_cronologia_fin: Optional[int] = None
+	cl_just_atribucion: Optional[str] = None
+	cl_des_bien: Optional[str] = None
+	cl_des_muebles: Optional[str] = None
+	cl_fuentes_escritas: Optional[str] = None
+	cl_fuentes_carto: Optional[str] = None
+	cl_fuentes_icono: Optional[str] = None
+	cl_fuentes_orales: Optional[str] = None
+	cl_uso_estado: Optional[str] = None
+	tl_estado_porc_extraido: Optional[str] = None
+	tl_figura2: Optional[str] = None
+	tl_figura3: Optional[str] = None
+	tl_figura4: Optional[str] = None
+	tl_figura5: Optional[str] = None
+	cl_observaciones: Optional[str] = None
+	tl_autor: Optional[str] = None
+	tl_supervisor: Optional[str] = None
+	fc_autor_fecha_cumplimenta: Optional[datetime.datetime] = None
+	fc_super_fecha_cumplimenta: Optional[datetime.datetime] = None
+	geometry1_sk: Optional[str] = None
+	tl_adjunto: Optional[str] = None
+	id_referencia: Optional[int] = None
+	tl_fecha_referencia: Optional[str] = None
+	cd_yac_referencia: Optional[str] = None
+	cd_catalogo_regional: Optional[str] = None
+	cd_catalogo_urbanistico: Optional[str] = None
+	fc_inscripcion_catalogo: Optional[datetime.datetime] = None
+	tl_proteccion_arq_regional: Optional[str] = None
+	tl_dir_postal: Optional[str] = None
+	tl_dir_poligono: Optional[str] = None
+	tl_referencia_catastral: Optional[str] = None
+	cl_historia_bien: Optional[str] = None
+	cl_obras_usos: Optional[str] = None
+	tl_arca: Optional[str] = None
+	cl_otros_codigos: Optional[str] = None
+	fc_fecha_modificacion: Optional[datetime.datetime] = None
+	shape_length: Optional[float] = None
+	shape_area: Optional[float] = None
+	geometry_bk: Optional[str] = None
+	geometry_x_bk: Optional[float] = None
+	geometry_y_bk: Optional[float] = None
+	geometry_area_bk: Optional[float] = None
 
-        last_cd_codigo = data[0][0] if data else f'CM/{cd_value}/0000'
-        prefijo, cd_value, id_contador = last_cd_codigo.split('/')
+	@staticmethod
+	def generate_cd_codigo ( cult_var_municipios_cd_values: list[str] ):
+		"""
+		Genera un código para un nuevo bien cultural.
 
-        return f'{prefijo}/{cd_value}/{str(int(id_contador) + 1).zfill(4)}'
+		:param cult_var_municipios_cd_values: Una lista de códigos de municipio.
+		:return: Un código generado para el bien cultural.
+		"""
 
-    @staticmethod
-    def create(tl_nombre: str, cult_var_municipios_cd_values: list[str]):
-        return CultBienesModel(
-            cd_codigo=CultBienesModel.generate_cd_codigo(cult_var_municipios_cd_values),
-            tl_nombre=tl_nombre
-        )
+		cd_value = '000' if len( cult_var_municipios_cd_values ) > 1 else cult_var_municipios_cd_values[0]
+		data = Table( TABLE_NAME ).select(
+			'CD_CODIGO',
+			where=f'''CD_CODIGO like {TString( f'CM/{cd_value}/%' )}''',
+			order_by='CD_CODIGO DESC'
+		)
 
-    @staticmethod
-    def read(cd_codigo: str):
-        data = Table(TABLE_NAME).select(
-            SELECT_ALL,
-            where=f'''CD_CODIGO={TString(cd_codigo)}'''
-        )
+		last_cd_codigo = data[0][0] if data else f'CM/{cd_value}/0000'
+		prefijo, cd_value, id_contador = last_cd_codigo.split( '/' )
 
-        if not len(data):
-            raise ValueError(f'{cd_codigo} not found in {TABLE_NAME}')
+		return f'{prefijo}/{cd_value}/{str( int( id_contador ) + 1 ).zfill( 4 )}'
 
-        return [CultBienesModel(*row) for row in data]
+	@staticmethod
+	def create ( tl_nombre: str, cult_var_municipios_cd_values: list[str] ):
+		"""
+		Crea una nueva instancia de CultBienesModel.
 
-    def save(self):
-        return self._save(
-            f'OBJECTID={TInteger(self.objectid)}',
-            self.cd_codigo,
-            CultBienesModel,
-            Table(TABLE_NAME),
-            IGNORE,
-            is_update=bool(self.objectid)
-        )
+		:param tl_nombre: El nombre del bien cultural.
+		:param cult_var_municipios_cd_values: Una lista de códigos de municipio.
+		:return: Una instancia de CultBienesModel.
+		"""
 
-    def delete(self):
-        if not self.objectid:
-            raise ValueError('OBJECTID is required to delete')
+		return CultBienesModel(
+			cd_codigo=CultBienesModel.generate_cd_codigo( cult_var_municipios_cd_values ),
+			tl_nombre=tl_nombre
+		)
 
-        return Table(TABLE_NAME).delete(f'OBJECTID={TInteger(self.objectid)}')
+	@staticmethod
+	def read ( cd_codigo: str ):
+		"""
+		Lee un bien cultural existente.
+
+		:param cd_codigo: El código del bien cultural.
+		:return: Una lista de instancias de CultBienesModel.
+		"""
+
+		data = Table( TABLE_NAME ).select(
+			SELECT_ALL,
+			where=f'''CD_CODIGO={TString( cd_codigo )}'''
+		)
+
+		if not len( data ): raise ValueError( f'{cd_codigo} not found in {TABLE_NAME}' )
+		return [CultBienesModel( *row ) for row in data]
+
+	def save ( self ):
+		"""
+		Guarda el bien cultural actual.
+		"""
+
+		return self._save(
+			f'OBJECTID={TInteger( self.objectid )}',
+			self.cd_codigo,
+			CultBienesModel,
+			Table( TABLE_NAME ),
+			IGNORE,
+			is_update=bool( self.objectid )
+		)
+
+	def delete ( self ):
+		"""
+		Elimina el bien cultural actual.
+		"""
+
+		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )
+		return Table( TABLE_NAME ).delete( f'OBJECTID={TInteger( self.objectid )}' )

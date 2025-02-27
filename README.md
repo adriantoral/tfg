@@ -1,21 +1,27 @@
-Los bienes en la base de datos de INPHIS se guardan en la tabla [CULT_BIENES](columnas/CULT_BIENES.md).
-Esta tabla es la que guarda todos los datos de los bienes, sin embargo, para que el programa INPHIS pueda indexar estos bienes,
-hay que crear una referencia en la tabla [CULT_BIENES_PICKLIST](columnas/CULT_BIENES_PICKLIST.md) con un CD_TIPO de valor 'MUNICIPIO',
+Los bienes en la base de datos de INPHIS se guardan en la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md).
+Esta tabla es la que guarda todos los datos de los bienes, sin embargo, para que el programa INPHIS pueda indexar estos
+bienes,
+hay que crear una referencia en la tabla [CULT_BIENES_PICKLIST](docs/columnas/CULT_BIENES_PICKLIST.md) con un CD_TIPO de
+valor 'MUNICIPIO',
 de esta forma nos aseguramos de que el programa pueda indexar nuestros bienes.
 
-> Los CD_CODIGO de la tabla [CULT_BIENES](columnas/CULT_BIENES.md) no son únicos, pueden estar repetidos, en ese caso la aplicación de
+> Los CD_CODIGO de la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) no son únicos, pueden estar repetidos, en ese
+> caso la
+> aplicación de
 > INPHIS usará la última referencia para hacer cambio, sin embargo, nosotros podemos tratarlos independientemente.
 
-Para crear en nuestro programa un bien, podemos llamar a la factoría de [CULT_BIENES_FACTORY](lib/inphis/factory/CULT_BIENES.md).
-Esta se encarga de crear las referencias en las tablas, tanto en [CULT_BIENES](columnas/CULT_BIENES.md) como
-en [CULT_BIENES_PICKLIST](columnas/CULT_BIENES_PICKLIST.md).
-La factoría devuelve un objeto como si fuese un ODM, entonces para editar los valores de nuestro objeto simplemente deberemos editar sus
+Para crear en nuestro programa un bien, podemos llamar a la factoría
+de [CULT_BIENES_FACTORY](docs/lib/inphis/factory/CULT_BIENES.md).
+Esta se encarga de crear las referencias en las tablas, tanto en [CULT_BIENES](docs/columnas/CULT_BIENES.md) como
+en [CULT_BIENES_PICKLIST](docs/columnas/CULT_BIENES_PICKLIST.md).
+La factoría devuelve un objeto como si fuese un ODM, entonces para editar los valores de nuestro objeto simplemente
+deberemos editar sus
 atributos y llamar al método .save(), aquí te dejo un ejemplo:
 
 ```python
-mi_bien = CultBienesFactory.create_bien('MI_BIEN', ["001"])
+mi_bien = CultBienesFactory.create_bien( 'MI_BIEN', ["001"] )
 mi_bien.tl_dircalle = 'Calle Nueva'
-mi_bien.save()
+mi_bien.save( )
 
 # Este es el estado del bien antes de editar sus atributos
 # ---------------------------------------------------------
@@ -28,22 +34,28 @@ Al crear un nuevo bien, así quedaría nuestra base de datos:
 
 ```json
 {
-  // Todos los valores estan a None porque asi los hemos declarado
-  "CULT_BIENES": [
-    "(2, None, 'CM/001/0001', 'MI_BIEN', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)"
-  ],
-  "CULT_BIENES_PICKLIST": [
-    "(9, 'CM/001/0001', 'MUNICIPIO', 1, '001')"
-  ]
+	// Todos los valores estan a None porque asi los hemos declarado
+	"CULT_BIENES": [
+		"(2, None, 'CM/001/0001', 'MI_BIEN', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)"
+	],
+	"CULT_BIENES_PICKLIST": [
+		"(9, 'CM/001/0001', 'MUNICIPIO', 1, '001')"
+	]
 }
 ```
 
-En cuanto a importar muchos bienes de una vez, usaremos el formato de fichero CSV, donde se tendrán que cumplir las siguientes reglas:
+En cuanto a importar muchos bienes de una vez, usaremos el formato de fichero CSV, donde se tendrán que cumplir las
+siguientes reglas:
 
-- El primer valor tienen que ser los CD_VALUES de los municipios separados por un guion, si es solo un valor, no se incluirá guion.
-- A partir del segundo valor ya serán los datos de nuestra tabla [CULT_BIENES](columnas/CULT_BIENES.md) empezando a partir de CD_CODIGO, si
-  se quiere evitar un valor se deberá poner 'None' en su valor. Es importante que estén presentes los 57 campos de la tabla. Las columnas de
-  la tabla [CULT_BIENES](columnas/CULT_BIENES.md) cuya descripción sea 'None', se deberá dejar en 'None' porque todavía no le he encontrado
+- El primer valor tienen que ser los CD_VALUES de los municipios separados por un guion, si es solo un valor, no se
+  incluirá guion.
+- A partir del segundo valor ya serán los datos de nuestra tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) empezando a
+  partir de CD_CODIGO, si
+  se quiere evitar un valor se deberá poner 'None' en su valor. Es importante que estén presentes los 57 campos de la
+  tabla. Las columnas de
+  la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) cuya descripción sea 'None', se deberá dejar en 'None' porque
+  todavía
+  no le he encontrado
   utilidad en la base de datos de INPHIS.
 
 Un ejemplo de CSV:

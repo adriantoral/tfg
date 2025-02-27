@@ -1,65 +1,90 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from lib.interfaces.models import IModels
-from lib.tables.table import Table, SELECT_ALL
+from lib.tables.table import SELECT_ALL, Table
 from lib.types.t_integer import TInteger
 from lib.types.t_string import TString
 
 TABLE_NAME = 'CULT_BIENES_PICKLIST'
 IGNORE = [
-    'objectid'
+	'objectid'
 ]
 
 
 @dataclass
-class CultBienesPicklistModel(IModels):
-    objectid: int = None
-    cd_codigo: str = None
-    cd_tipo: str = None
-    nm_orden: int = None
-    ds_valor: str = None
+class CultBienesPicklistModel( IModels ):
+	"""
+	Modelo para representar un elemento de lista de selección de bien cultural.
+	"""
 
-    @staticmethod
-    def create(cd_codigo: str, cd_tipo: str, ds_valor: str):
-        data = Table(TABLE_NAME).select(
-            'NM_ORDEN',
-            where=f'''CD_CODIGO={TString(cd_codigo)} and CD_TIPO={TString(cd_tipo)}''',
-            order_by='OBJECTID DESC'
-        )
+	objectid: Optional[int] = None
+	cd_codigo: Optional[str] = None
+	cd_tipo: Optional[str] = None
+	nm_orden: Optional[int] = None
+	ds_valor: Optional[str] = None
 
-        last_nm_orden = data[0][0] if len(data) else 0
+	@staticmethod
+	def create ( cd_codigo: str, cd_tipo: str, ds_valor: str ):
+		"""
+		Crea una nueva instancia de CultBienesPicklistModel.
 
-        return CultBienesPicklistModel(
-            cd_codigo=cd_codigo,
-            cd_tipo=cd_tipo,
-            nm_orden=last_nm_orden + 1,
-            ds_valor=ds_valor
-        )
+		:param cd_codigo: El código del bien cultural.
+		:param cd_tipo: El tipo de lista de selección.
+		:param ds_valor: El valor del elemento de lista de selección.
+		:return: Una instancia de CultBienesPicklistModel.
+		"""
 
-    @staticmethod
-    def read(cd_codigo: str):
-        data = Table(TABLE_NAME).select(
-            SELECT_ALL,
-            where=f'''CD_CODIGO={TString(cd_codigo)}'''
-        )
+		data = Table( TABLE_NAME ).select(
+			'NM_ORDEN',
+			where=f'''CD_CODIGO={TString( cd_codigo )} and CD_TIPO={TString( cd_tipo )}''',
+			order_by='OBJECTID DESC'
+		)
 
-        if not len(data):
-            raise ValueError(f'{cd_codigo} not found in {TABLE_NAME}')
+		last_nm_orden = data[0][0] if len( data ) else 0
 
-        return [CultBienesPicklistModel(*row) for row in data]
+		return CultBienesPicklistModel(
+			cd_codigo=cd_codigo,
+			cd_tipo=cd_tipo,
+			nm_orden=last_nm_orden + 1,
+			ds_valor=ds_valor
+		)
 
-    def save(self):
-        return self._save(
-            f'OBJECTID={TInteger(self.objectid)}',
-            self.cd_codigo,
-            CultBienesPicklistModel,
-            Table(TABLE_NAME),
-            IGNORE,
-            is_update=bool(self.objectid)
-        )
+	@staticmethod
+	def read ( cd_codigo: str ):
+		"""
+		Lee elementos de lista de selección de un bien cultural existente.
 
-    def delete(self):
-        if not self.objectid:
-            raise ValueError('OBJECTID is required to delete')
+		:param cd_codigo: El código del bien cultural.
+		:return: Una lista de instancias de CultBienesPicklistModel.
+		"""
 
-        return Table(TABLE_NAME).delete(f'OBJECTID={TInteger(self.objectid)}')
+		data = Table( TABLE_NAME ).select(
+			SELECT_ALL,
+			where=f'''CD_CODIGO={TString( cd_codigo )}'''
+		)
+
+		if not len( data ): raise ValueError( f'{cd_codigo} not found in {TABLE_NAME}' )
+		return [CultBienesPicklistModel( *row ) for row in data]
+
+	def save ( self ):
+		"""
+		Guarda el elemento de lista de selección actual.
+		"""
+
+		return self._save(
+			f'OBJECTID={TInteger( self.objectid )}',
+			self.cd_codigo,
+			CultBienesPicklistModel,
+			Table( TABLE_NAME ),
+			IGNORE,
+			is_update=bool( self.objectid )
+		)
+
+	def delete ( self ):
+		"""
+		Elimina el elemento de lista de selección actual.
+		"""
+
+		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )
+		return Table( TABLE_NAME ).delete( f'OBJECTID={TInteger( self.objectid )}' )

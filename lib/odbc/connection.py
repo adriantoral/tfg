@@ -4,19 +4,39 @@ PYODBC_IGNORE_CONNECTION = 'IGNORE'
 
 
 class PyODBCConnection:
-    _instance = None
-    _initialized = False
+	"""
+	Singleton class to manage a PyODBC connection to a Microsoft Access database.
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(PyODBCConnection, cls).__new__(cls)
+	:ivar connection: The PyODBC connection object.
+	:ivar cursor: The cursor object for executing SQL queries.
+	"""
 
-        return cls._instance
+	_instance = None
+	_initialized = False
 
-    def __init__(self, db_path: str):
-        if PyODBCConnection._initialized: return
+	def __new__ ( cls, *args, **kwargs ):
+		"""
+		Create a new instance of the PyODBCConnection class if it does not already exist.
 
-        self.connection = pyodbc.connect(f'Driver={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={db_path};')
-        self.cursor = self.connection.cursor()
+		:param args: Additional arguments.
+		:param kwargs: Additional keyword arguments.
+		:return: The singleton instance of the PyODBCConnection class.
+		"""
 
-        PyODBCConnection._initialized = True
+		if not cls._instance: cls._instance = super( PyODBCConnection, cls ).__new__( cls )
+		return cls._instance
+
+	def __init__ ( self, db_path: str ):
+		"""
+		Initialize the PyODBC connection to the specified Microsoft Access database.
+
+		:param db_path: Path to the Microsoft Access database file.
+		:type db_path: str
+		"""
+
+		if PyODBCConnection._initialized: return
+
+		self.connection = pyodbc.connect( f'Driver={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={db_path};' )
+		self.cursor = self.connection.cursor( )
+
+		PyODBCConnection._initialized = True
