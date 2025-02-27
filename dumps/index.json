@@ -1,0 +1,986 @@
+{
+    "CULT_BIENES": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "Shape": {
+            "type": "<class 'bytearray'>",
+            "bytes": 1073741823
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "TL_NOMBRE": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "TL_DIRCALLE": {
+            "type": "<class 'str'>",
+            "bytes": 150
+        },
+        "NM_DIRNUM": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "TL_LOCALIDAD": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_OTROS_NOMBRES": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "CD_COD_ANT": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "NM_UTM_X": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "NM_UTM_Y": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "TL_GEO_LON": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_GEO_LAT": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "NM_ALTITUD": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_EXTENSION": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CL_ACCESOS": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_DES_GENERAL": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "NM_CRONOLOGIA_INICIO": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_CRONOLOGIA_FIN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CL_JUST_ATRIBUCION": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_DES_BIEN": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_DES_MUEBLES": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_FUENTES_ESCRITAS": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_FUENTES_CARTO": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_FUENTES_ICONO": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_FUENTES_ORALES": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_USO_ESTADO": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_ESTADO_PORC_EXTRAIDO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_FIGURA2": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_FIGURA3": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_FIGURA4": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_FIGURA5": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "CL_OBSERVACIONES": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_AUTOR": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "TL_SUPERVISOR": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "FC_AUTOR_FECHA_CUMPLIMENTA": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "FC_SUPER_FECHA_CUMPLIMENTA": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "GEOMETRY1_SK": {
+            "type": "<class 'str'>",
+            "bytes": 15
+        },
+        "TL_ADJUNTO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "ID_REFERENCIA": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "TL_FECHA_REFERENCIA": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "CD_YAC_REFERENCIA": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "CD_CATALOGO_REGIONAL": {
+            "type": "<class 'str'>",
+            "bytes": 15
+        },
+        "CD_CATALOGO_URBANISTICO": {
+            "type": "<class 'str'>",
+            "bytes": 250
+        },
+        "FC_INSCRIPCION_CATALOGO": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "TL_PROTECCION_ARQ_REGIONAL": {
+            "type": "<class 'str'>",
+            "bytes": 250
+        },
+        "TL_DIR_POSTAL": {
+            "type": "<class 'str'>",
+            "bytes": 250
+        },
+        "TL_DIR_POLIGONO": {
+            "type": "<class 'str'>",
+            "bytes": 200
+        },
+        "TL_REFERENCIA_CATASTRAL": {
+            "type": "<class 'str'>",
+            "bytes": 250
+        },
+        "CL_HISTORIA_BIEN": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_OBRAS_USOS": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_ARCA": {
+            "type": "<class 'str'>",
+            "bytes": 250
+        },
+        "CL_OTROS_CODIGOS": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "FC_FECHA_MODIFICACION": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "Shape_Length": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "Shape_Area": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "GEOMETRY_BK": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "GEOMETRY_X_BK": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "GEOMETRY_Y_BK": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "GEOMETRY_AREA_BK": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        }
+    },
+    "CULT_BIENES_BIBLIO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "TL_ANNO": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "CL_TITULO": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_EDITORIAL": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CL_LUGAR_EDICION": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_EXTENSION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "CL_AUTORIA": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        }
+    },
+    "CULT_BIENES_CATALOGO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "CD_CODIGO_CATALOGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "IT_GRABADO": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_ALTA": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_BAJA": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_FIGURA_2": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_FIGURA_3": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_FIGURA_4": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_FIGURA_5": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_GEOMETRIA": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "IT_CAMBIO_ADJUNTO": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        }
+    },
+    "CULT_BIENES_DEPOSITO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "CD_LUGAR": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "TL_DESCRIPCION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "TL_EXPEDIENTE": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        }
+    },
+    "CULT_BIENES_DOC_LEGAL": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "IT_VIGENTE": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "FC_ACTO": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "CD_TIPO_ACTO": {
+            "type": "<class 'str'>",
+            "bytes": 1
+        },
+        "DS_CITA": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "FC_BOCM": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "FC_BOE": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        }
+    },
+    "CULT_BIENES_INVESTIGA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "TL_EXPEDIENTE": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_DENOMINACION": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_ANNOS": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "TL_DIRECTORES": {
+            "type": "<class 'str'>",
+            "bytes": 1073741823
+        },
+        "CD_TIPO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        }
+    },
+    "CULT_BIENES_PICKLIST": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "CD_TIPO": {
+            "type": "<class 'str'>",
+            "bytes": 100
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "DS_VALOR": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_BIENES_POLIGONO": {
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "CDID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "GEOMETRY1": {
+            "type": "<class 'bytearray'>",
+            "bytes": 1073741823
+        },
+        "GEOMETRY1_SK": {
+            "type": "<class 'str'>",
+            "bytes": 15
+        },
+        "GEOMETRY1_Length": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "GEOMETRY1_Area": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        }
+    },
+    "CULT_BIENES_PRO_PATRI": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "CD_FIGURA": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "CD_CATEGORIA": {
+            "type": "<class 'str'>",
+            "bytes": 2
+        },
+        "TL_NUMREG": {
+            "type": "<class 'str'>",
+            "bytes": 100
+        },
+        "CD_TIPOLOGIA": {
+            "type": "<class 'str'>",
+            "bytes": 2
+        }
+    },
+    "CULT_BIENES_PRO_URBAN": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "CD_PLANEAMIENTO": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "FC_APROB_PROV": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "FC_APROB_DEF": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "FC_BOCM": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        },
+        "FC_APROB_INI": {
+            "type": "<class 'datetime.datetime'>",
+            "bytes": 19
+        }
+    },
+    "CULT_ENTORNO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "Shape": {
+            "type": "<class 'bytearray'>",
+            "bytes": 1073741823
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "GEOMETRY1_AREA": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "GEOMETRY1_LEN": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "Shape_Length": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "Shape_Area": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        }
+    },
+    "CULT_POLIGONO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_CODIGO": {
+            "type": "<class 'str'>",
+            "bytes": 25
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_X": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "NM_Y": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        },
+        "NM_Z": {
+            "type": "<class 'float'>",
+            "bytes": 53
+        }
+    },
+    "CULT_VAR_ACTIVIDAD": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_CAUSAS_ESTADO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_CLASIF_SUELO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_CONSTRUCCION": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_CULTURA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_DOMINIO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_ESTADO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_ESTILO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_INTERES": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_INVESTIGACIONES": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_LUGAR_DEPOSITO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_MAT_ARQUEOLOG": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_MUEBLES": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_MUNICIPIOS": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_PERIODO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 100
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_PROT_BICS": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_PROT_CATA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_PROT_FIGURA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_PROT_PLANEA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_TAXONOMIA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_TIPO_ACTO": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    },
+    "CULT_VAR_TIPOLOGIA": {
+        "OBJECTID": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "NM_ORDEN": {
+            "type": "<class 'int'>",
+            "bytes": 10
+        },
+        "CD_VALUE": {
+            "type": "<class 'str'>",
+            "bytes": 50
+        },
+        "DS_DESCRIPTION": {
+            "type": "<class 'str'>",
+            "bytes": 255
+        }
+    }
+}
