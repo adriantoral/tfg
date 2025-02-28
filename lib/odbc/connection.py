@@ -1,5 +1,7 @@
 import pyodbc
 
+from lib.odbc.checkers import odbc_checkers
+
 PYODBC_IGNORE_CONNECTION = 'IGNORE'
 
 
@@ -26,7 +28,7 @@ class PyODBCConnection:
 		if not cls._instance: cls._instance = super( PyODBCConnection, cls ).__new__( cls )
 		return cls._instance
 
-	def __init__ ( self, db_path: str ):
+	def __init__ ( self, db_path: str, ignore_checks: bool = False ):
 		"""
 		Initialize the PyODBC connection to the specified Microsoft Access database.
 
@@ -35,6 +37,8 @@ class PyODBCConnection:
 		"""
 
 		if PyODBCConnection._initialized: return
+
+		if not ignore_checks: odbc_checkers( db_path )
 
 		self.connection = pyodbc.connect( f'Driver={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={db_path};' )
 		self.cursor = self.connection.cursor( )

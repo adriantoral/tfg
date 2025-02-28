@@ -4,8 +4,8 @@ from typing import Optional
 
 from lib.interfaces.models import IModels
 from lib.tables.table import SELECT_ALL, Table
-from lib.types.t_integer import TInteger
-from lib.types.t_string import TString
+from lib.types.integer import TInteger
+from lib.types.string import TString
 
 TABLE_NAME = 'CULT_BIENES'
 IGNORE = [
@@ -19,7 +19,7 @@ IGNORE = [
 @dataclass
 class CultBienesModel( IModels ):
 	"""
-	Modelo para representar un bien cultural.
+	Model to represent a cult_bien.
 	"""
 
 	objectid: Optional[int] = None
@@ -86,10 +86,11 @@ class CultBienesModel( IModels ):
 	@staticmethod
 	def generate_cd_codigo ( cult_var_municipios_cd_values: list[str] ):
 		"""
-		Genera un código para un nuevo bien cultural.
+		Generate a code for a new cult_bien.
 
-		:param cult_var_municipios_cd_values: Una lista de códigos de municipio.
-		:return: Un código generado para el bien cultural.
+		:param cult_var_municipios_cd_values: A list of municipality codes.
+		:return: A generated code for the cult_bien.
+		:rtype: str
 		"""
 
 		cd_value = '000' if len( cult_var_municipios_cd_values ) > 1 else cult_var_municipios_cd_values[0]
@@ -107,11 +108,12 @@ class CultBienesModel( IModels ):
 	@staticmethod
 	def create ( tl_nombre: str, cult_var_municipios_cd_values: list[str] ):
 		"""
-		Crea una nueva instancia de CultBienesModel.
+		Create a new instance of CultBienesModel.
 
-		:param tl_nombre: El nombre del bien cultural.
-		:param cult_var_municipios_cd_values: Una lista de códigos de municipio.
-		:return: Una instancia de CultBienesModel.
+		:param tl_nombre: The name of the cult_bien.
+		:param cult_var_municipios_cd_values: A list of municipality codes.
+		:return: An instance of CultBienesModel.
+		:rtype: CultBienesModel
 		"""
 
 		return CultBienesModel(
@@ -122,10 +124,11 @@ class CultBienesModel( IModels ):
 	@staticmethod
 	def read ( cd_codigo: str ):
 		"""
-		Lee un bien cultural existente.
+		Read an existing cult_bien.
 
-		:param cd_codigo: El código del bien cultural.
-		:return: Una lista de instancias de CultBienesModel.
+		:param cd_codigo: The code of the cult_bien.
+		:return: A list of instances of CultBienesModel.
+		:rtype: list[CultBienesModel]
 		"""
 
 		data = Table( TABLE_NAME ).select(
@@ -138,7 +141,7 @@ class CultBienesModel( IModels ):
 
 	def save ( self ):
 		"""
-		Guarda el bien cultural actual.
+		Save the current cult_bien.
 		"""
 
 		return self._save(
@@ -152,7 +155,9 @@ class CultBienesModel( IModels ):
 
 	def delete ( self ):
 		"""
-		Elimina el bien cultural actual.
+		Delete the current cult_bien.
+
+		:raises ValueError: If OBJECTID is not set.
 		"""
 
 		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )

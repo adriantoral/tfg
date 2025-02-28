@@ -3,20 +3,20 @@ from abc import abstractmethod
 
 class ITypes:
 	"""
-	Interfaz para tipos.
+	Interface for types.
 	"""
 
 	@abstractmethod
 	def __repr__ ( self ):
 		"""
-		Método abstracto para representar el tipo como una cadena.
+		Abstract method to return the string representation of the object.
 		"""
 
 		pass
 
 	def __str__ ( self ):
 		"""
-		Representa el tipo como una cadena.
+		Returns the string representation of the object.
 		"""
 
 		return self.__repr__( )

@@ -3,8 +3,8 @@ from typing import Optional
 
 from lib.interfaces.models import IModels
 from lib.tables.table import SELECT_ALL, Table
-from lib.types.t_integer import TInteger
-from lib.types.t_string import TString
+from lib.types.integer import TInteger
+from lib.types.string import TString
 
 TABLE_NAME = 'CULT_BIENES_PICKLIST'
 IGNORE = [
@@ -15,7 +15,7 @@ IGNORE = [
 @dataclass
 class CultBienesPicklistModel( IModels ):
 	"""
-	Modelo para representar un elemento de lista de selección de bien cultural.
+	Model to represent a cult_bien picklist item.
 	"""
 
 	objectid: Optional[int] = None
@@ -27,12 +27,16 @@ class CultBienesPicklistModel( IModels ):
 	@staticmethod
 	def create ( cd_codigo: str, cd_tipo: str, ds_valor: str ):
 		"""
-		Crea una nueva instancia de CultBienesPicklistModel.
+		Create a new instance of CultBienesPicklistModel.
 
-		:param cd_codigo: El código del bien cultural.
-		:param cd_tipo: El tipo de lista de selección.
-		:param ds_valor: El valor del elemento de lista de selección.
-		:return: Una instancia de CultBienesPicklistModel.
+		:param cd_codigo: The code of the cult_bien.
+		:type cd_codigo: str
+		:param cd_tipo: The type of picklist.
+		:type cd_tipo: str
+		:param ds_valor: The value of the picklist item.
+		:type ds_valor: str
+		:returns: An instance of CultBienesPicklistModel.
+		:rtype: CultBienesPicklistModel
 		"""
 
 		data = Table( TABLE_NAME ).select(
@@ -53,10 +57,12 @@ class CultBienesPicklistModel( IModels ):
 	@staticmethod
 	def read ( cd_codigo: str ):
 		"""
-		Lee elementos de lista de selección de un bien cultural existente.
+		Read picklist items of an existing cult_bien.
 
-		:param cd_codigo: El código del bien cultural.
-		:return: Una lista de instancias de CultBienesPicklistModel.
+		:param cd_codigo: The code of the cult_bien.
+		:type cd_codigo: str
+		:returns: A list of instances of CultBienesPicklistModel.
+		:rtype: list[CultBienesPicklistModel]
 		"""
 
 		data = Table( TABLE_NAME ).select(
@@ -69,7 +75,7 @@ class CultBienesPicklistModel( IModels ):
 
 	def save ( self ):
 		"""
-		Guarda el elemento de lista de selección actual.
+		Save the current picklist item.
 		"""
 
 		return self._save(
@@ -83,7 +89,9 @@ class CultBienesPicklistModel( IModels ):
 
 	def delete ( self ):
 		"""
-		Elimina el elemento de lista de selección actual.
+		Delete the current picklist item.
+
+		:raises ValueError: If OBJECTID is not set.
 		"""
 
 		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )

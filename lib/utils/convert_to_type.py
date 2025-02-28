@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from lib.types.t_date import TDate
-from lib.types.t_integer import TInteger
-from lib.types.t_null import TNull
-from lib.types.t_string import TString
+from lib.types.date import TDate
+from lib.types.integer import TInteger
+from lib.types.null import TNull
+from lib.types.string import TString
 
 TYPES_MAP = {
 	str     : TString,

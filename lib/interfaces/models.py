@@ -7,14 +7,14 @@ from lib.utils.build_query import build_query_colums
 
 class IModels:
 	"""
-	Interfaz para modelos.
+	Interface for models.
 	"""
 
 	@staticmethod
 	@abstractmethod
 	def create ( *args, **kwargs ):
 		"""
-		Método abstracto para crear una nueva instancia del modelo.
+		Abstract method to create a new instance of the model.
 		"""
 
 		pass
@@ -23,7 +23,7 @@ class IModels:
 	@abstractmethod
 	def read ( *args, **kwargs ):
 		"""
-		Método abstracto para leer instancias existentes del modelo.
+		Abstract method to read existing instances of the model.
 		"""
 
 		pass
@@ -38,14 +38,20 @@ class IModels:
 			is_update: bool = False
 	):
 		"""
-		Método para guardar el modelo actual.
+		Method to save the current model.
 
-		:param where: Cláusula WHERE para la actualización.
-		:param read_value: Valor para leer el modelo después de la inserción.
-		:param model: La clase del modelo.
-		:param table: La tabla de la base de datos.
-		:param ignore: Lista de columnas para ignorar.
-		:param is_update: Si es una actualización en lugar de una inserción.
+		:param where: WHERE clause for the update.
+		:type where: str
+		:param read_value: Value to read the model after insertion.
+		:type read_value: Any
+		:param model: The model class.
+		:type model: Type[IModels]
+		:param table: The database table.
+		:type table: Table
+		:param ignore: List of columns to ignore.
+		:type ignore: list[str]
+		:param is_update: Whether it is an update instead of an insertion.
+		:type is_update: bool
 		"""
 
 		data = build_query_colums( self.__dict__, ignore )
@@ -60,7 +66,7 @@ class IModels:
 	@abstractmethod
 	def save ( self ):
 		"""
-		Método abstracto para guardar el modelo actual.
+		Abstract method to save the current model.
 		"""
 
 		pass
@@ -68,7 +74,7 @@ class IModels:
 	@abstractmethod
 	def delete ( self ):
 		"""
-		Método abstracto para eliminar la instancia actual del modelo.
+		Abstract method to delete the current model instance.
 		"""
 
 		pass

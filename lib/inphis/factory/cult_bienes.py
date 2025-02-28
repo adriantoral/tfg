@@ -2,17 +2,21 @@ import csv
 
 from lib.inphis.models.cult_bienes import CultBienesModel
 from lib.inphis.models.cult_bienes_picklist import CultBienesPicklistModel
+from lib.interfaces.factory import IFactory
 
 
-class CultBienesFactory:
+class CultBienesFactory( IFactory ):
 	@staticmethod
-	def create_bien ( tl_nombre: str, cult_var_municipios_cd_values: list[str] ):
+	def create_bien ( tl_nombre: str, cult_var_municipios_cd_values: list[str] ) -> CultBienesModel:
 		"""
-		Crea una nueva instancia de CultBienesModel y CultBienesPicklistModel.
+		Create a new instance of CultBienesModel and CultBienesPicklistModel.
 
-		:param tl_nombre: El nombre del bien cultural.
-		:param cult_var_municipios_cd_values: Una lista de códigos de municipio.
-		:return: Una instancia de CultBienesModel.
+		:param tl_nombre: The name of the cult_bien.
+		:type tl_nombre: str
+		:param cult_var_municipios_cd_values: A list of municipality codes.
+		:type cult_var_municipios_cd_values: list[str]
+		:return: An instance of CultBienesModel.
+		:rtype: CultBienesModel
 		"""
 
 		cult_bien = CultBienesModel.create( tl_nombre, cult_var_municipios_cd_values )
@@ -29,15 +33,20 @@ class CultBienesFactory:
 			cult_var_municipios_separator: str = '-',
 			bien_separator: str = ';',
 			save_on_import: bool = True
-	):
+	) -> list[CultBienesModel]:
 		"""
-		Importa datos de bienes culturales desde un archivo CSV.
+		Import cult_bien data from a CSV file.
 
-		:param csv_path: La ruta al archivo CSV.
-		:param cult_var_municipios_separator: El separador para códigos de municipio.
-		:param bien_separator: El separador para campos de bienes culturales.
-		:param save_on_import: Sí se guarda cada bien cultural importado.
-		:return: Una lista de instancias de CultBienesModel.
+		:param csv_path: The path to the CSV file.
+		:type csv_path: str
+		:param cult_var_municipios_separator: The separator for municipality codes.
+		:type cult_var_municipios_separator: str
+		:param bien_separator: The separator for cult_bien fields.
+		:type bien_separator: str
+		:param save_on_import: Whether to save each imported cult_bien.
+		:type save_on_import: bool
+		:return: A list of instances of CultBienesModel.
+		:rtype: list[CultBienesModel]
 		"""
 
 		imported = []

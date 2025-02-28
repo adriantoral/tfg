@@ -1,5 +1,5 @@
 from lib.odbc.connection import PYODBC_IGNORE_CONNECTION, PyODBCConnection
-from lib.types.t_null import TNull
+from lib.types.null import TNull
 from lib.utils.build_query import build_query
 from lib.utils.save_to import save_to_file
 
