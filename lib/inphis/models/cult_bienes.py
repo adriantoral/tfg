@@ -3,9 +3,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from lib.interfaces.models import IModels
-from lib.tables.table import SELECT_ALL, Table
-from lib.types.integer import TInteger
-from lib.types.string import TString
+from lib.orm.tables.table import SELECT_ALL, Table
 
 TABLE_NAME = 'CULT_BIENES'
 IGNORE = [
@@ -94,11 +92,11 @@ class CultBienesModel( IModels ):
 		"""
 
 		cd_value = '000' if len( cult_var_municipios_cd_values ) > 1 else cult_var_municipios_cd_values[0]
-		data = Table( TABLE_NAME ).select(
-			'CD_CODIGO',
-			where=f'''CD_CODIGO like {TString( f'CM/{cd_value}/%' )}''',
-			order_by='CD_CODIGO DESC'
-		)
+		data = Table( TABLE_NAME ) \
+			.select( 'CD_CODIGO' ) \
+			.where( CD_CODIGO=(None, 'like', f'CM/{cd_value}/%') ) \
+			.order_by( CD_CODIGO='DESC' ) \
+			.execute( )
 
 		last_cd_codigo = data[0][0] if data else f'CM/{cd_value}/0000'
 		prefijo, cd_value, id_contador = last_cd_codigo.split( '/' )
@@ -131,10 +129,10 @@ class CultBienesModel( IModels ):
 		:rtype: list[CultBienesModel]
 		"""
 
-		data = Table( TABLE_NAME ).select(
-			SELECT_ALL,
-			where=f'''CD_CODIGO={TString( cd_codigo )}'''
-		)
+		data = Table( TABLE_NAME ) \
+			.select( SELECT_ALL ) \
+			.where( CD_CODIGO=(None, '=', cd_codigo) ) \
+			.execute( )
 
 		if not len( data ): raise ValueError( f'{cd_codigo} not found in {TABLE_NAME}' )
 		return [CultBienesModel( *row ) for row in data]
@@ -145,12 +143,12 @@ class CultBienesModel( IModels ):
 		"""
 
 		return self._save(
-			f'OBJECTID={TInteger( self.objectid )}',
-			self.cd_codigo,
+			TABLE_NAME,
 			CultBienesModel,
-			Table( TABLE_NAME ),
-			IGNORE,
-			is_update=bool( self.objectid )
+			bool( self.objectid ),
+			('OBJECTID', self.objectid),
+			self.cd_codigo,
+			IGNORE
 		)
 
 	def delete ( self ):
@@ -161,4 +159,7 @@ class CultBienesModel( IModels ):
 		"""
 
 		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )
-		return Table( TABLE_NAME ).delete( f'OBJECTID={TInteger( self.objectid )}' )
+		return Table( TABLE_NAME ) \
+			.delete( ) \
+			.where( OBJECTID=(None, '=', self.objectid) ) \
+			.execute( )

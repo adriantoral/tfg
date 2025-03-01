@@ -1,7 +1,7 @@
 import json
 
-from lib.tables.table import Table
-from lib.utils.save_to import save_to_file
+from lib.orm.tables.table import Table
+from lib.orm.utils.save_to import save_to_file
 
 IGNORE_TABLES = [
 	'CamposNoExportados',
@@ -102,8 +102,7 @@ class TableIndex:
 		if not self._index:
 			self._index = index
 
-		if save_to:
-			save_to_file( index, save_to )
+		if save_to: save_to_file( index, save_to )
 		return index
 
 	def generate_snapshot ( self, save_to: str = None ):
@@ -121,8 +120,7 @@ class TableIndex:
 			for table_name in self._table_names
 		}
 
-		if save_to:
-			save_to_file( snapshot, save_to )
+		if save_to: save_to_file( snapshot, save_to )
 		return snapshot
 
 	def import_from_snapshot ( self, snapshot_path: str, tables_to_import: list[str] ):
@@ -147,5 +145,5 @@ class TableIndex:
 							column: value
 							for column, value in zip( table.get_info( )[0], row )
 						}
-					)
+					).execute( )
 					except ValueError: continue

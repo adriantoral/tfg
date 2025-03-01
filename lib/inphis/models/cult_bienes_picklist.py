@@ -2,9 +2,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from lib.interfaces.models import IModels
-from lib.tables.table import SELECT_ALL, Table
-from lib.types.integer import TInteger
-from lib.types.string import TString
+from lib.orm.queries.where_conditions import QueryWhereConditions
+from lib.orm.tables.table import SELECT_ALL, Table
 
 TABLE_NAME = 'CULT_BIENES_PICKLIST'
 IGNORE = [
@@ -39,11 +38,14 @@ class CultBienesPicklistModel( IModels ):
 		:rtype: CultBienesPicklistModel
 		"""
 
-		data = Table( TABLE_NAME ).select(
-			'NM_ORDEN',
-			where=f'''CD_CODIGO={TString( cd_codigo )} and CD_TIPO={TString( cd_tipo )}''',
-			order_by='OBJECTID DESC'
-		)
+		data = Table( TABLE_NAME ) \
+			.select( 'NM_ORDEN' ) \
+			.where(
+			CD_CODIGO=(None, '=', cd_codigo),
+			CD_TIPO=QueryWhereConditions.AND( '=', cd_tipo )
+		) \
+			.order_by( OBJECTID='DESC' ) \
+			.execute( )
 
 		last_nm_orden = data[0][0] if len( data ) else 0
 
@@ -65,10 +67,10 @@ class CultBienesPicklistModel( IModels ):
 		:rtype: list[CultBienesPicklistModel]
 		"""
 
-		data = Table( TABLE_NAME ).select(
-			SELECT_ALL,
-			where=f'''CD_CODIGO={TString( cd_codigo )}'''
-		)
+		data = Table( TABLE_NAME ) \
+			.select( SELECT_ALL ) \
+			.where( CD_CODIGO=(None, '=', cd_codigo) ) \
+			.execute( )
 
 		if not len( data ): raise ValueError( f'{cd_codigo} not found in {TABLE_NAME}' )
 		return [CultBienesPicklistModel( *row ) for row in data]
@@ -79,12 +81,12 @@ class CultBienesPicklistModel( IModels ):
 		"""
 
 		return self._save(
-			f'OBJECTID={TInteger( self.objectid )}',
-			self.cd_codigo,
+			TABLE_NAME,
 			CultBienesPicklistModel,
-			Table( TABLE_NAME ),
-			IGNORE,
-			is_update=bool( self.objectid )
+			bool( self.objectid ),
+			('OBJECTID', self.objectid),
+			self.cd_codigo,
+			IGNORE
 		)
 
 	def delete ( self ):
@@ -95,4 +97,7 @@ class CultBienesPicklistModel( IModels ):
 		"""
 
 		if not self.objectid: raise ValueError( 'OBJECTID is required to delete' )
-		return Table( TABLE_NAME ).delete( f'OBJECTID={TInteger( self.objectid )}' )
+		return Table( TABLE_NAME ) \
+			.delete( ) \
+			.where( OBJECTID=(None, '=', self.objectid) ) \
+			.execute( )

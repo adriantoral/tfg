@@ -1,4 +1,4 @@
-from lib.utils.convert_to_type import convert_to_type
+from lib.orm.utils.convert_to_type import convert_to_type
 
 
 def build_query ( query: list[str], delimeter: str = ' ' ):
