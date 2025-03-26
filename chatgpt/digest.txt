@@ -1,0 +1,362 @@
+Directory structure:
+└── docs/
+    ├── Estructura Microsoft Access Comunidad De Madrid.md
+    ├── importar_csv.md
+    └── columnas/
+        ├── CULT_BIENES.md
+        ├── CULT_BIENES_BIBLIO.md
+        ├── CULT_BIENES_DEPOSITO.md
+        ├── CULT_BIENES_DOC_LEGAL.md
+        ├── CULT_BIENES_INVESTIGA.md
+        ├── CULT_BIENES_PICKLIST.md
+        ├── CULT_BIENES_PRO_PATRI.md
+        ├── CULT_BIENES_PRO_URBAN.md
+        └── CULT_POLIGONO.md
+
+================================================
+File: Estructura Microsoft Access Comunidad De Madrid.md
+================================================
+|    Nombre de la tabla    |                               Descripción                               |                          Columnas                          |
+|:------------------------:|:-----------------------------------------------------------------------:|:----------------------------------------------------------:|
+|       CULT_BIENES        |                        Referencia de un inmueble                        |           [CULT_BIENES](columnas/CULT_BIENES.md)           |
+|    CULT_BIENES_BIBLIO    |                       Investigación/Bibliografía                        |    [CULT_BIENES_BIBLIO](columnas/CULT_BIENES_BIBLIO.md)    |
+|   CULT_BIENES_CATALOGO   |                                                                         |                                                            |
+|   CULT_BIENES_DEPOSITO   |                        Muebles y fauna/Deposito                         |  [CULT_BIENES_DEPOSITO](columnas/CULT_BIENES_DEPOSITO.md)  |
+|  CULT_BIENES_DOC_LEGAL   |        Régimen de protección y conservación/Documentación legal         | [CULT_BIENES_DOC_LEGAL](columnas/CULT_BIENES_DOC_LEGAL.md) |
+|  CULT_BIENES_INVESTIGA   |                      Investigación/Intervenciones                       | [CULT_BIENES_INVESTIGA](columnas/CULT_BIENES_INVESTIGA.md) |
+|   CULT_BIENES_PICKLIST   |                    Atribución cultural y cronológica                    |  [CULT_BIENES_PICKLIST](columnas/CULT_BIENES_PICKLIST.md)  |
+|   CULT_BIENES_POLIGONO   |                                                                         |                                                            |
+|  CULT_BIENES_PRO_PATRI   |       Régimen de protección y conservación/Protección patrimonial       | [CULT_BIENES_PRO_PATRI](columnas/CULT_BIENES_PRO_PATRI.md) |
+|  CULT_BIENES_PRO_URBAN   | Régimen de protección y conservación/Protección arquitectónica regional | [CULT_BIENES_PRO_URBAN](columnas/CULT_BIENES_PRO_URBAN.md) |
+|       CULT_ENTORNO       |                                                                         |                                                            |
+|      CULT_POLIGONO       |                         Documentación/Polígono                          |         [CULT_POLIGONO](columnas/CULT_POLIGONO.md)         |
+|    CULT_VAR_ACTIVIDAD    |                                                                         |                                                            |
+|  CULT_VAR_CAUSAS_ESTADO  |                                                                         |                                                            |
+|  CULT_VAR_CLASIF_SUELO   |                                                                         |                                                            |
+|  CULT_VAR_CONSTRUCCION   |                                                                         |                                                            |
+|     CULT_VAR_CULTURA     |                                                                         |                                                            |
+|     CULT_VAR_DOMINIO     |                                                                         |                                                            |
+|     CULT_VAR_ESTADO      |                                                                         |                                                            |
+|     CULT_VAR_ESTILO      |                                                                         |                                                            |
+|     CULT_VAR_INTERES     |                                                                         |                                                            |
+| CULT_VAR_INVESTIGACIONES |                                                                         |                                                            |
+| CULT_VAR_LUGAR_DEPOSITO  |                                                                         |                                                            |
+|  CULT_VAR_MAT_ARQUEOLOG  |                                                                         |                                                            |
+|     CULT_VAR_MUEBLES     |                                                                         |                                                            |
+|   CULT_VAR_MUNICIPIOS    |                                                                         |                                                            |
+|     CULT_VAR_PERIODO     |                                                                         |                                                            |
+|    CULT_VAR_PROT_BICS    |                                                                         |                                                            |
+|    CULT_VAR_PROT_CATA    |                                                                         |                                                            |
+|   CULT_VAR_PROT_FIGURA   |                                                                         |                                                            |
+|   CULT_VAR_PROT_PLANEA   |                                                                         |                                                            |
+|    CULT_VAR_TAXONOMIA    |                                                                         |                                                            |
+|    CULT_VAR_TIPO_ACTO    |                                                                         |                                                            |
+|    CULT_VAR_TIPOLOGIA    |                                                                         |                                                            |
+
+
+================================================
+File: importar_csv.md
+================================================
+# Manual para importar desde un CSV
+
+## Pasos para importar desde un CSV
+
+Primero es importante conocer la estructura del CSV.
+
+Un CSV corresponde únicamente a 1 sola tabla, no se pueden mezclar datos dos tablas diferentes en un mismo CSV.
+El formato de un CSV es el siguiente:
+
+```
+columna1,columna2,columna3
+dato1,dato2,dato3
+dato4,dato5,dato6
+```
+
+Donde la primera fila corresponde a los nombres de las columnas y las siguientes filas a los datos.
+Los nombres de las columnas se pueden ver en la documentación que se adjunte en un correo pasado, pero aquí te dejo un
+ejemplo de la tabla de bienes que es la más importante.
+
+Los datos dentro de IGNORE no se deberian de poner en el CSV, ya se gestionan internamente por access.
+
+```python
+IGNORE = [
+	'objectid',
+	'shape',
+	'shape_length',
+	'shape_area'
+]
+
+
+@dataclass
+class CultBienesModel( IModels ):
+	objectid: int = None
+	shape: bytearray = None
+	cd_codigo: str = None
+	tl_nombre: str = None
+	tl_dircalle: str = None
+	nm_dirnum: int = None
+	tl_localidad: str = None
+	tl_otros_nombres: str = None
+	cd_cod_ant: str = None
+	nm_utm_x: float = None
+	nm_utm_y: float = None
+	tl_geo_lon: str = None
+	tl_geo_lat: str = None
+	nm_altitud: int = None
+	nm_extension: int = None
+	cl_accesos: str = None
+	cl_des_general: str = None
+	nm_cronologia_inicio: int = None
+	nm_cronologia_fin: int = None
+	cl_just_atribucion: str = None
+	cl_des_bien: str = None
+	cl_des_muebles: str = None
+	cl_fuentes_escritas: str = None
+	cl_fuentes_carto: str = None
+	cl_fuentes_icono: str = None
+	cl_fuentes_orales: str = None
+	cl_uso_estado: str = None
+	tl_estado_porc_extraido: str = None
+	tl_figura2: str = None
+	tl_figura3: str = None
+	tl_figura4: str = None
+	tl_figura5: str = None
+	cl_observaciones: str = None
+	tl_autor: str = None
+	tl_supervisor: str = None
+	fc_autor_fecha_cumplimenta: datetime.datetime = None
+	fc_super_fecha_cumplimenta: datetime.datetime = None
+	geometry1_sk: str = None
+	tl_adjunto: str = None
+	id_referencia: int = None
+	tl_fecha_referencia: str = None
+	cd_yac_referencia: str = None
+	cd_catalogo_regional: str = None
+	cd_catalogo_urbanistico: str = None
+	fc_inscripcion_catalogo: datetime.datetime = None
+	tl_proteccion_arq_regional: str = None
+	tl_dir_postal: str = None
+	tl_dir_poligono: str = None
+	tl_referencia_catastral: str = None
+	cl_historia_bien: str = None
+	cl_obras_usos: str = None
+	tl_arca: str = None
+	cl_otros_codigos: str = None
+	fc_fecha_modificacion: datetime.datetime = None
+	shape_length: float = None
+	shape_area: float = None
+	geometry_bk: str = None
+	geometry_x_bk: float = None
+	geometry_y_bk: float = None
+	geometry_area_bk: float = None
+```
+
+Por cierto, al importar el CSV, el programa intentara convertir el dato de entrada al tipo correspondiente en su clase,
+por ejemplo, si el tipo de la columna es un int, el programa intentara convertir el dato a un int, si no puede, lanzara
+un error.
+
+Un ejemplo de un CSV final sería el siguiente:
+
+```csv
+cd_codigo;tl_nombre;tl_dircalle;nm_dirnum
+004-001;Casa de la Cultura;Av. 9 de Octubre;505
+001-002-003-004;Calle 1;Av. 9 de Octubre;508
+```
+
+La cosa más importante de la tabla de bienes es como se genera su cd_codigo, este codigo corresponde a un id unico de un
+bien, y se genera basado en los CD_VALUES de la tabla CULT_VAR_MUNICIPIOS. SIEMPRE debera haber al menos un cd_codigo.
+
+Por lo que se deberán separar los CD_VALUES por un guion como se ve en el ejemplo, el programa se encargara de generar
+el codigo correcto. Si solo hay un CD_VALUE no hace falta poner el guion.
+
+
+
+
+================================================
+File: columnas/CULT_BIENES.md
+================================================
+> Se pueden tener filas duplicadas con el mismo CD_CODIGO.
+> En la app de INPHIS se modifican ambas a la vez al hacer cambios, pero se pueden tratar individualmente en nuestra implementación.
+
+| Columna                    | Descripción                                                                                                                                                                                                             |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OBJECTID                   | Identificador único                                                                                                                                                                                                     |
+| Shape                      | None                                                                                                                                                                                                                    |
+| CD_CODIGO                  | Identificador único. Se genera como CM\_{CD_VALUE de CULT_VAR_MUNICIPIOS, si se seleccionan varios de pone 000}\_{Contador interno que empieza en 0001 (no se donde se guarda el contador) (que pasa si pasa de 9999?)} |
+| TL_NOMBRE                  | Valor del nombre                                                                                                                                                                                                        |
+| TL_DIRCALLE                | Valor de la calle                                                                                                                                                                                                       |
+| NM_DIRNUM                  | Valor del numero de la calle                                                                                                                                                                                            |
+| TL_LOCALIDAD               | Valor de la localidad                                                                                                                                                                                                   |
+| TL_OTROS_NOMBRES           | Valor de los otros nombres                                                                                                                                                                                              |
+| CD_COD_ANT                 | Valor de la carta arqueológica                                                                                                                                                                                          |
+| NM_UTM_X                   | Valor de las coordenadas de X (365000-500000)                                                                                                                                                                           |
+| NM_UTM_Y                   | Valor de las coordenadas de Y (4400000-4560000)                                                                                                                                                                         |
+| TL_GEO_LON                 | None                                                                                                                                                                                                                    |
+| TL_GEO_LAT                 | None                                                                                                                                                                                                                    |
+| NM_ALTITUD                 | Valor de la altitud                                                                                                                                                                                                     |
+| NM_EXTENSION               | None                                                                                                                                                                                                                    |
+| CL_ACCESOS                 | Valor de los accesos                                                                                                                                                                                                    |
+| CL_DES_GENERAL             | Valor de la descripción básica del bien                                                                                                                                                                                 |
+| NM_CRONOLOGIA_INICIO       | Valor de la cronología de inicio                                                                                                                                                                                        |
+| NM_CRONOLOGIA_FIN          | Valor de la cronología de final                                                                                                                                                                                         |
+| CL_JUST_ATRIBUCION         | Valor de la justificación de la atribución                                                                                                                                                                              |
+| CL_DES_BIEN                | Valor de la descripción del bien                                                                                                                                                                                        |
+| CL_DES_MUEBLES             | Valor de la descripción de muebles y fauna                                                                                                                                                                              |
+| CL_FUENTES_ESCRITAS        | Valor de las fuentes escritas                                                                                                                                                                                           |
+| CL_FUENTES_CARTO           | Valor de las fuentes cartografías                                                                                                                                                                                       |
+| CL_FUENTES_ICONO           | Valor de las fuentes iconográficas                                                                                                                                                                                      |
+| CL_FUENTES_ORALES          | Valor de las fuentes orales u otras fuentes                                                                                                                                                                             |
+| CL_USO_ESTADO              | Valor de uso actual y estado de conservación, régimen de edificación, usos del planeamiento vigente                                                                                                                     |
+| TL_ESTADO_PORC_EXTRAIDO    | None                                                                                                                                                                                                                    |
+| TL_FIGURA2                 | Valor de la imagen de plano general. Se genera como {CD_CODIGO}\_i2.extension                                                                                                                                           |
+| TL_FIGURA3                 | Valor de la imagen de fotografía general. Se genera como {CD_CODIGO}\_i3.extension                                                                                                                                      |
+| TL_FIGURA4                 | Valor de la imagen de fotografía de detalle. Se genera como {CD_CODIGO}\_i4.extension                                                                                                                                   |
+| TL_FIGURA5                 | Valor de la imagen de otra documentación grafica. Se genera como {CD_CODIGO}\_i5.extension                                                                                                                              |
+| CL_OBSERVACIONES           | Valor de observaciones de autor                                                                                                                                                                                         |
+| TL_AUTOR                   | Valor de autor                                                                                                                                                                                                          |
+| TL_SUPERVISOR              | Valor de supervisor                                                                                                                                                                                                     |
+| FC_AUTOR_FECHA_CUMPLIMENTA | Fecha de cumplimentación del autor                                                                                                                                                                                      |
+| FC_SUPER_FECHA_CUMPLIMENTA | Fecha de cumplimentación del supervisor                                                                                                                                                                                 |
+| GEOMETRY1_SK               | None                                                                                                                                                                                                                    |
+| TL_ADJUNTO                 | Fichero de la documentación adjunta. Se guardan todos los ficheros en un ZIP. Se genera como {CD_CODIGO}\_d.zip                                                                                                         |
+| ID_REFERENCIA              | None                                                                                                                                                                                                                    |
+| TL_FECHA_REFERENCIA        | None                                                                                                                                                                                                                    |
+| CD_YAC_REFERENCIA          | None                                                                                                                                                                                                                    |
+| CD_CATALOGO_REGIONAL       | Valor de catalogo regional                                                                                                                                                                                              |
+| CD_CATALOGO_URBANISTICO    | Valor de catalogo urbanístico                                                                                                                                                                                           |
+| FC_INSCRIPCION_CATALOGO    | None                                                                                                                                                                                                                    |
+| TL_PROTECCION_ARQ_REGIONAL | Valor de protección arquitectónica regional                                                                                                                                                                             |
+| TL_DIR_POSTAL              | Valor de dirección postal                                                                                                                                                                                               |
+| TL_DIR_POLIGONO            | Valor de parcelas de referencia                                                                                                                                                                                         |
+| TL_REFERENCIA_CATASTRAL    | Valor de referencia catastral                                                                                                                                                                                           |
+| CL_HISTORIA_BIEN           | Valor de historia del bien                                                                                                                                                                                              |
+| CL_OBRAS_USOS              | Valor de obras y usos permitidos                                                                                                                                                                                        |
+| TL_ARCA                    | Valor de la arca                                                                                                                                                                                                        |
+| CL_OTROS_CODIGOS           | Valor de los otros códigos                                                                                                                                                                                              |
+| FC_FECHA_MODIFICACION      | None                                                                                                                                                                                                                    |
+| Shape_Length               | None                                                                                                                                                                                                                    |
+| Shape_Area                 | None                                                                                                                                                                                                                    |
+| GEOMETRY_BK                | None                                                                                                                                                                                                                    |
+| GEOMETRY_X_BK              | None                                                                                                                                                                                                                    |
+| GEOMETRY_Y_BK              | None                                                                                                                                                                                                                    |
+| GEOMETRY_AREA_BK           | None                                                                                                                                                                                                                    |
+
+
+================================================
+File: columnas/CULT_BIENES_BIBLIO.md
+================================================
+| Columna          | Descripción                                          |
+|------------------|------------------------------------------------------|
+| OBJECTID         | Identificador único                                  |
+| CD_CODIGO        | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| TL_ANNO          | Valor del año                                        |
+| CL_TITULO        | Valor de titulo                                      |
+| CL_EDITORIAL     | Valor de editorial/revista                           |
+| CL_LUGAR_EDICION | Valor de lugar de edición                            |
+| TL_EXTENSION     | Valor de extensión                                   |
+| CL_AUTORIA       | Valor de autoría                                     |
+| NM_ORDEN         | Orden como se muestra en la lista de la aplicación   |
+
+
+================================================
+File: columnas/CULT_BIENES_DEPOSITO.md
+================================================
+| Columna        | Descripción                                          |
+|----------------|------------------------------------------------------|
+| OBJECTID       | Identificador único                                  |
+| CD_CODIGO      | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| CD_LUGAR       | CD_VALUE de CULT_VAR_LUGAR_DEPOSITO                  |
+| TL_DESCRIPCION | DS_DESCRIPTION de CULT_VAR_LUGAR_DEPOSITO            |
+| TL_EXPEDIENTE  | Valor de Expediente/Sigla                            |
+| NM_ORDEN       | Orden como se muestra en la lista de la aplicación   |
+
+
+================================================
+File: columnas/CULT_BIENES_DOC_LEGAL.md
+================================================
+| Columna      | Descripción                                          |
+|--------------|------------------------------------------------------|
+| OBJECTID     | Identificador único                                  |
+| CD_CODIGO    | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| NM_ORDEN     | Orden como se muestra en la lista de la aplicación   |
+| IT_VIGENTE   | S si esta vigente N si no                            |
+| FC_ACTO      | Fecha del acto                                       |
+| CD_TIPO_ACTO | CD_VALUE de CULT_VAR_TIPO_ACTO                       |
+| DS_CITA      | Valor de la cita del documento                       |
+| FC_BOCM      | Fecha de BOCM                                        |
+| FC_BOE       | Fecha de BOE                                         |
+
+
+================================================
+File: columnas/CULT_BIENES_INVESTIGA.md
+================================================
+| Columna         | Descripción                                          |
+|-----------------|------------------------------------------------------|
+| OBJECTID        | Identificador único                                  |
+| CD_CODIGO       | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| TL_EXPEDIENTE   | Valor de expediente                                  |
+| TL_DENOMINACION | Valor de denominación                                |
+| TL_ANNOS        | Valor de año                                         |
+| TL_DIRECTORES   | Valor de directores                                  |
+| CD_TIPO         | CD_VALUE de CULT_VAR_INVESTIGACIONES                 |
+| NM_ORDEN        | Orden como se muestra en la lista de la aplicación   |
+
+
+================================================
+File: columnas/CULT_BIENES_PICKLIST.md
+================================================
+> Si no se guarda aquí un registro de CD_TIPO=MUNICIPIO no se podrá filtrar en la app de INPHIS
+
+| Columna   | Descripción                                                                                                            |
+|-----------|------------------------------------------------------------------------------------------------------------------------|
+| OBJECTID  | Identificador único                                                                                                    |
+| CD_CODIGO | Identificador único de [CULT_BIENES](CULT_BIENES.md)                                                                   |
+| CD_TIPO   | Referencia a una tabla CULT\_VAR\_{{REFERENCIA}} (algunos valores coinciden con el nombre de la tabla otros no)        |
+| NM_ORDEN  | Orden como se muestra en la lista de la aplicación                                                                     |
+| DS_VALOR  | CD_VALUE de la referencia de la tabla CULT\_VAR\_{{REFERENCIA} (no se cual de los dos es porque coinciden los valores) |
+
+
+
+
+================================================
+File: columnas/CULT_BIENES_PRO_PATRI.md
+================================================
+| Columna      | Descripción                                          |
+|--------------|------------------------------------------------------|
+| OBJECTID     | Identificador único                                  |
+| CD_CODIGO    | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| CD_FIGURA    | CD_VALUE de CULT_VAR_PROT_FIGURA                     |
+| CD_CATEGORIA | CD_VALUE de CULT_VAR_PROT_BICS                       |
+| TL_NUMREG    | Valor de numero de regulación                        |
+| CD_TIPOLOGIA | CD_VALUE de CULT_VAR_PROT_BICS                       |
+
+CD_CATEGORIA y CD_TIPOLOGIA usan la misma tabla (CULT_VAR_PROT_BICS) para almacenar las opciones pero parecen que se separan en el
+programa (i, j, m, p, q, n, r son exclusivo de de CD_TIPOLOGIA, el resto de CD_CATEGORIA)
+
+================================================
+File: columnas/CULT_BIENES_PRO_URBAN.md
+================================================
+| Columna         | Descripción                                          |
+|-----------------|------------------------------------------------------|
+| OBJECTID        | Identificador único                                  |
+| CD_CODIGO       | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| CD_PLANEAMIENTO | CD_VALUE de CULT_VAR_PROT_PLANEA                     |
+| FC_APROB_PROV   | Fecha de aprobación provisional                      |
+| FC_APROB_DEF    | Fecha de aprobación definitiva                       |
+| FC_BOCM         | Fecha de BOCM                                        |
+| FC_APROB_INI    | Fecha de aprobación inicial                          |
+
+
+================================================
+File: columnas/CULT_POLIGONO.md
+================================================
+| Columna   | Descripción                                          |
+|-----------|------------------------------------------------------|
+| OBJECTID  | Identificador único                                  |
+| CD_CODIGO | Identificador único de [CULT_BIENES](CULT_BIENES.md) |
+| NM_ORDEN  | Orden como se muestra en la lista de la aplicación   |
+| NM_X      | Valor de X                                           |
+| NM_Y      | Valor de Y                                           |
+| NM_Z      | Valor de Z                                           |
+
+
