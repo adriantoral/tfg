@@ -1,66 +1,336 @@
-Los bienes en la base de datos de INPHIS se guardan en la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md).
-Esta tabla es la que guarda todos los datos de los bienes, sin embargo, para que el programa INPHIS pueda indexar estos
-bienes,
-hay que crear una referencia en la tabla [CULT_BIENES_PICKLIST](docs/columnas/CULT_BIENES_PICKLIST.md) con un CD_TIPO de
-valor 'MUNICIPIO',
-de esta forma nos aseguramos de que el programa pueda indexar nuestros bienes.
+# Manual Técnico de Uso del Sistema de Catalogación Automática
 
-> Los CD_CODIGO de la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) no son únicos, pueden estar repetidos, en ese
-> caso la
-> aplicación de
-> INPHIS usará la última referencia para hacer cambio, sin embargo, nosotros podemos tratarlos independientemente.
+## Despliegue e Instalación del Sistema
 
-Para crear en nuestro programa un bien, podemos llamar a la factoría
-de [CULT_BIENES_FACTORY](docs/lib/inphis/factory/CULT_BIENES.md).
-Esta se encarga de crear las referencias en las tablas, tanto en [CULT_BIENES](docs/columnas/CULT_BIENES.md) como
-en [CULT_BIENES_PICKLIST](docs/columnas/CULT_BIENES_PICKLIST.md).
-La factoría devuelve un objeto como si fuese un ODM, entonces para editar los valores de nuestro objeto simplemente
-deberemos editar sus
-atributos y llamar al método .save(), aquí te dejo un ejemplo:
+### 1. Hardware probado
+
+- Sistema: Windows 11 (64 bits)
+- Memoria RAM: 32GB
+- Espacio en disco suficiente para dependencias y base de datos `.mdb`
+- Necesario: Microsoft Access (nativo en Windows) y sus drivers ODBC
+
+### 2. Instalación de Python y Dependencias
+
+- Python 3.11 debe estar instalado (`python --version`)
+- Instalar pip (usualmente viene incluido)
+
+#### Dependencias del Proyecto
+
+```bash
+pip install pyodbc==5.2.0
+```
+
+- `pyodbc`: Para conexión con Access
+
+### 3. Driver ODBC para Access
+
+Para verificar que se tienen los drivers necesarios se debe usar una función que se encuentra en `/lib/odbc/checkers`
+llamada `check_microsoft_access_drivers` la cual verifica si se tienen los drivers necesarios para la conexión con
+Access.
+
+Si no se tienen los drivers necesarios, se debe instalar el driver de Microsoft Access desde la página oficial de
+Microsoft.
 
 ```python
-mi_bien = CultBienesFactory.create_bien( 'MI_BIEN', ["001"] )
-mi_bien.tl_dircalle = 'Calle Nueva'
-mi_bien.save( )
+from lib.odbc.checkers import check_microsoft_access_drivers
 
-# Este es el estado del bien antes de editar sus atributos
-# ---------------------------------------------------------
-# CultBienesModel(objectid=3, shape=None, cd_codigo='CM/001/0002', tl_nombre='MI_BIEN', tl_dircalle=None, nm_dirnum=None, tl_localidad=None, tl_otros_nombres=None, cd_cod_ant=None, nm_utm_x=None, nm_utm_y=None, tl_geo_lon=None, tl_geo_lat=None, nm_altitud=None, nm_extension=None, cl_accesos=None, cl_des_general=None, nm_cronologia_inicio=None, nm_cronologia_fin=None, cl_just_atribucion=None, cl_des_bien=None, cl_des_muebles=None, cl_fuentes_escritas=None, cl_fuentes_carto=None, cl_fuentes_icono=None, cl_fuentes_orales=None, cl_uso_estado=None, tl_estado_porc_extraido=None, tl_figura2=None, tl_figura3=None, tl_figura4=None, tl_figura5=None, cl_observaciones=None, tl_autor=None, tl_supervisor=None, fc_autor_fecha_cumplimenta=None, fc_super_fecha_cumplimenta=None, geometry1_sk=None, tl_adjunto=None, id_referencia=None, tl_fecha_referencia=None, cd_yac_referencia=None, cd_catalogo_regional=None, cd_catalogo_urbanistico=None, fc_inscripcion_catalogo=None, tl_proteccion_arq_regional=None, tl_dir_postal=None, tl_dir_poligono=None, tl_referencia_catastral=None, cl_historia_bien=None, cl_obras_usos=None, tl_arca=None, cl_otros_codigos=None, fc_fecha_modificacion=None, shape_length=None, shape_area=None, geometry_bk=None, geometry_x_bk=None, geometry_y_bk=None, geometry_area_bk=None)
-# ---------------------------------------------------------
-# CultBienesModel(objectid=3, shape=None, cd_codigo='CM/001/0002', tl_nombre='MI_BIEN', tl_dircalle='Calle Nueva', nm_dirnum=None, tl_localidad=None, tl_otros_nombres=None, cd_cod_ant=None, nm_utm_x=None, nm_utm_y=None, tl_geo_lon=None, tl_geo_lat=None, nm_altitud=None, nm_extension=None, cl_accesos=None, cl_des_general=None, nm_cronologia_inicio=None, nm_cronologia_fin=None, cl_just_atribucion=None, cl_des_bien=None, cl_des_muebles=None, cl_fuentes_escritas=None, cl_fuentes_carto=None, cl_fuentes_icono=None, cl_fuentes_orales=None, cl_uso_estado=None, tl_estado_porc_extraido=None, tl_figura2=None, tl_figura3=None, tl_figura4=None, tl_figura5=None, cl_observaciones=None, tl_autor=None, tl_supervisor=None, fc_autor_fecha_cumplimenta=None, fc_super_fecha_cumplimenta=None, geometry1_sk=None, tl_adjunto=None, id_referencia=None, tl_fecha_referencia=None, cd_yac_referencia=None, cd_catalogo_regional=None, cd_catalogo_urbanistico=None, fc_inscripcion_catalogo=None, tl_proteccion_arq_regional=None, tl_dir_postal=None, tl_dir_poligono=None, tl_referencia_catastral=None, cl_historia_bien=None, cl_obras_usos=None, tl_arca=None, cl_otros_codigos=None, fc_fecha_modificacion=None, shape_length=None, shape_area=None, geometry_bk=None, geometry_x_bk=None, geometry_y_bk=None, geometry_area_bk=None)
+check_microsoft_access_drivers( )
 ```
 
-Al crear un nuevo bien, así quedaría nuestra base de datos:
+### 4. Archivo de Base de Datos ETNOCAM
 
-```json
-{
-	// Todos los valores estan a None porque asi los hemos declarado
-	"CULT_BIENES": [
-		"(2, None, 'CM/001/0001', 'MI_BIEN', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)"
-	],
-	"CULT_BIENES_PICKLIST": [
-		"(9, 'CM/001/0001', 'MUNICIPIO', 1, '001')"
-	]
-}
+Para usar la aplicacion se debe tener en fichero de base de datos de ETNOCAM, el cual se suele llamar `INPHIS.mdb`. Para
+comprobar que el fichero es correcto se puede usar la función que se encuentra en `/lib/odbc/checkers` llamada
+`check_microsoft_access_mdb_file` la cual verifica si el fichero es correcto.
+
+```python
+from lib.odbc.checkers import check_microsoft_access_mdb_file
+
+FILE = "C:/MiRuta/A/INPHIS.mdb"
+check_microsoft_access_mdb_file( FILE )
 ```
 
-En cuanto a importar muchos bienes de una vez, usaremos el formato de fichero CSV, donde se tendrán que cumplir las
-siguientes reglas:
+El paso 3 y 4 se pueden unificar usando la función que se encuentra en `/lib/odbc/checkers` llamada `odbc_checkers` la
+cual verifica si se tienen los drivers necesarios y si el fichero de base de datos es correcto.
 
-- El primer valor tienen que ser los CD_VALUES de los municipios separados por un guion, si es solo un valor, no se
-  incluirá guion.
-- A partir del segundo valor ya serán los datos de nuestra tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) empezando a
-  partir de CD_CODIGO, si
-  se quiere evitar un valor se deberá poner 'None' en su valor. Es importante que estén presentes los 57 campos de la
-  tabla. Las columnas de
-  la tabla [CULT_BIENES](docs/columnas/CULT_BIENES.md) cuya descripción sea 'None', se deberá dejar en 'None' porque
-  todavía
-  no le he encontrado
-  utilidad en la base de datos de INPHIS.
+```python
+from lib.odbc.checkers import odbc_checkers
 
-Un ejemplo de CSV:
+FILE = "C:/MiRuta/A/INPHIS.mdb"
+odbc_checkers( FILE )
+```
+
+### 5. Código Fuente del Sistema
+
+Esta es la estructura de carpetas usada en el proyecto:
+
+```plaintext
+lib/
+├── inphis/           # Lógica de entidades patrimoniales
+├── interfaces/       # Interfaces abstractas
+├── odbc/             # Conexión con Access
+└── orm/              # ORM genérico
+```
+
+---
+
+## Guía de uso
+
+### 1. Conectar con la Base de Datos
+
+```python
+from lib.odbc.connection import PyODBCConnection
+
+PyODBCConnection( "C:/MiRuta/A/INPHIS.mdb" )
+```
+
+Errores comunes:
+
+- Drivers no encontrados → Ver sección instalación
+- Ruta incorrecta → Verificar `.mdb`
+
+Para solucionar estos errores se recomienda usar siempre esta pieza de codigo para crear la conexion:
+
+```python
+import os
+
+from lib.odbc.checkers import odbc_checkers
+from lib.odbc.connection import PyODBCConnection
+from lib.orm.tables.table_index import IGNORE_TABLES, TableIndex
+
+# Ruta a la base de datos de Microsoft Access
+DB_PATH = "C:/MiRuta/A/INPHIS.mdb"
+
+# Comprueba si la base de datos de Microsoft Access es accesible y si están los drivers necesarios
+odbc_checkers( DB_PATH )
+
+# Conecta a la base de datos de Microsoft Access y obtiene los nombres de las tablas
+odbc_connection = PyODBCConnection( DB_PATH )
+microsoft_access_tables = [
+	table_info.table_name
+	for table_info in odbc_connection.cursor.tables( tableType='TABLE' )
+	if table_info.table_name not in IGNORE_TABLES
+]
+
+# Crea un indice de las tablas de la base de datos
+tables = TableIndex( microsoft_access_tables )
+
+# Genera un indice de las tablas de la base de datos y lo guarda en un archivo JSON si no existe
+if not os.path.isfile( './dumps/index.json' ):
+	tables.generate_index( save_to='./dumps/index.json' )
+
+# Genera un snapshot incial de las tablas de la base de datos y lo guarda en un archivo JSON si no existe
+if not os.path.isfile( './dumps/snapshot.json' ):
+	tables.generate_snapshot( save_to='./dumps/snapshot.json' )
+```
+
+### 2. Importar Datos desde CSV
+
+Para importar datos desde un archivo CSV se debe tener en cuenta que la primera fila contiene los nombres de las
+columnas de la tabla en la que se van a guardar.
+
+En el caso de importar a la tabla `CULT_BIENES`se debe tener en cuenta que la columna `CD_CODIGO` se genera en tiempo de
+ejecucion, por lo que se debe seguir un formato específico, el cual es separar por guiones los ids de las regiones a las
+que pertenece.
+Esto se debe a como se usan estos ids para generar el `CD_CODIGO` de la entidad en la base de datos.
+
+Ejemplo de archivo CSV:
 
 ```csv
-001-002-003;cd_codigo;tl_nombre;tl_dircalle;nm_dirnum;tl_localidad;tl_otros_nombres;cd_cod_ant;nm_utm_x;nm_utm_y;tl_geo_lon;tl_geo_lat;nm_altitud;nm_extension;cl_accesos;cl_des_general;nm_cronologia_inicio;nm_cronologia_fin;cl_just_atribucion;cl_des_bien;cl_des_muebles;cl_fuentes_escritas;cl_fuentes_carto;cl_fuentes_icono;cl_fuentes_orales;cl_uso_estado;tl_estado_porc_extraido;tl_figura2;tl_figura3;tl_figura4;tl_figura5;cl_observaciones;tl_autor;tl_supervisor;fc_autor_fecha_cumplimenta;fc_super_fecha_cumplimenta;geometry1_sk;tl_adjunto;id_referencia;tl_fecha_referencia;cd_yac_referencia;cd_catalogo_regional;cd_catalogo_urbanistico;fc_inscripcion_catalogo;tl_proteccion_arq_regional;tl_dir_postal;tl_dir_poligono;tl_referencia_catastral;cl_historia_bien;cl_obras_usos;tl_arca;cl_otros_codigos;fc_fecha_modificacion;shape_length;shape_area;geometry_bk;geometry_x_bk;geometry_y_bk;geometry_area_bk
-004;cd_codigo;tl_nombre;tl_dircalle;nm_dirnum;tl_localidad;tl_otros_nombres;cd_cod_ant;nm_utm_x;nm_utm_y;tl_geo_lon;tl_geo_lat;nm_altitud;nm_extension;cl_accesos;cl_des_general;nm_cronologia_inicio;nm_cronologia_fin;cl_just_atribucion;cl_des_bien;cl_des_muebles;cl_fuentes_escritas;cl_fuentes_carto;cl_fuentes_icono;cl_fuentes_orales;cl_uso_estado;tl_estado_porc_extraido;tl_figura2;tl_figura3;tl_figura4;tl_figura5;cl_observaciones;tl_autor;tl_supervisor;fc_autor_fecha_cumplimenta;fc_super_fecha_cumplimenta;geometry1_sk;tl_adjunto;id_referencia;tl_fecha_referencia;cd_yac_referencia;cd_catalogo_regional;cd_catalogo_urbanistico;fc_inscripcion_catalogo;tl_proteccion_arq_regional;tl_dir_postal;tl_dir_poligono;tl_referencia_catastral;cl_historia_bien;cl_obras_usos;tl_arca;cl_otros_codigos;fc_fecha_modificacion;shape_length;shape_area;geometry_bk;geometry_x_bk;geometry_y_bk;geometry_area_bk
+cd_codigo;tl_nombre;tl_dircalle;nm_dirnum
+001-002-003-004;Casa de la Cultura;Av. 9 de Octubre;505
+001-002-003-004;Calle 1;Av. 9 de Octubre;508
 ```
+
+```python
+from lib.inphis.factory.cult_bienes import CultBienesFactory
+
+nuevos_bienes = CultBienesFactory.import_from_csv(
+	csv_path="C:/MiRuta/A/bienes.csv"
+)
+
+for bien in nuevos_bienes:
+	print( bien.cd_codigo, "-", bien.tl_nombre )
+```
+
+### 3. Añadir un Registro Manualmente
+
+Para agregar un registro manualmente se puede usar la factoría correspondiente, en este caso `CultBienesFactory` la cual
+contiene una función llamada `create_bien` que permite crear un nuevo bien recibiendo el nombre y una lista con
+los ids de las regiones a las que pertenece como parametros, esta función devuelve un objeto de tipo `CultBienesModel`.
+
+Este modelo tiene las columnas de la tabla como campos modificables, permite alterar sus valores de una
+forma sencilla, cuando se desee guardar los cambios se debe llamar al método `save`.
+
+Ejemplo de creación de un nuevo bien:
+
+```python
+from lib.inphis.factory.cult_bienes import CultBienesFactory
+
+mi_nuevo_bien = CultBienesFactory.create_bien(
+	'Mi nuevo bien',
+	[  # Los valores de cult_var_municipios_cd_values se pueden ver en el snapshot en la tabla CULT_VAR_MUNICIPIOS
+		'001',
+		'002',
+	]
+)
+
+# Cambio algunos valores del modelo
+mi_nuevo_bien.tl_dircalle = 'Calle de mi nuevo bien'
+mi_nuevo_bien.tl_dirnum = '1'
+
+# Guardo el modelo en la base de datos
+mi_nuevo_bien.save( )
+```
+
+> No se recomienda usar directamente el modelo para crear un nuevo bien porque esta tabla tiene relaciones con otras
+> tablas, la factoría se encarga de crear el bien y de generar las relaciones necesarias.
+
+### 4. Consultar Registros
+
+Para obtener registros de la base de datos existen varias formas, la primera y recomenda es usar los modelos de las
+tablas, estos convierten automaticamente los datos a objetos de modelo, lo cual permite hacer un CRUD de forma directa.
+
+La función `read` deberia de devolver un único objeto, sin embargo, como en la base de datos no se valida que
+`CD_CODIGO` sea único, esto puede dar el caso de que varios registros tengan el mismo `CD_CODIGO`, por lo que la función
+`read` devolvera una lista con los objetos que tengan el `CD_CODIGO`, por lo que devuleve una lista de objetos. Para
+usar el primero que encuentre simplemente se accede a su posición de la lista.
+
+También se permite usar la clase `Table` para hacer consultas SQL directas, esto es ciertamente inseguro porque los
+datos no se convierten a objetos, sino que se devuelven crudos.
+
+Ejemplo de consulta de registros:
+
+```python
+from lib.inphis.models.cult_bienes import CultBienesModel
+from lib.orm.tables.table import SELECT_ALL, Table
+
+# Consulta con Modelo
+bienes = CultBienesModel.read( 'CM/001/001' )  # ID único de un bien
+print( bienes )
+print( bienes[0] )
+
+# Consulta con Table
+Table( 'CULT_BIENES' )
+.select( SELECT_ALL )
+.where( CD_CODIGO=(None, '=', 'CM/001/001') )
+.execute( )
+```
+
+### 5. Actualizar un Registro
+
+Al igual que en la creación de un nuevo bien, se puede usar el modelo para actualizar los valores de un registro y luego
+llamar el método `save` para guardar los cambios.
+La función se encarga automaticamente de actualizar o crear el registro en caso de que no exista.
+
+```python
+from lib.inphis.models.cult_bienes import CultBienesModel
+from lib.orm.tables.table import Table
+
+# Consulta con Modelo
+bien = CultBienesModel.read( 'CM/001/001' )[0]
+
+bien.tl_nombre = 'Mi nuevo nombre'
+bien.tl_dircalle = 'Calle de mi nuevo bien'
+
+bien.save( )
+
+# Consulta con Table
+Table( 'CULT_BIENES' )\
+    .update( TL_NOMBRE='Mi nuevo nombre', TL_DIRCALLE='Calle de mi nuevo bien' )\
+    .where( CD_CODIGO=(None, '=', 'CM/001/001') )\
+    .execute( )
+```
+
+### 6. Eliminar un Registro
+
+```python
+from lib.inphis.models.cult_bienes import CultBienesModel
+from lib.orm.tables.table import Table
+
+# Consulta con Modelo
+bien = CultBienesModel.read( 'CM/001/001' )[0]
+bien.delete( )
+
+# Consulta con Table
+Table( 'CULT_BIENES' )\
+    .delete( )\
+    .where( CD_CODIGO=(None, '=', 'CM/001/001') )\
+    .execute( )
+```
+
+### 7. Snapshot de la Tabla
+
+Se puede generar un snapshot de la tabla en formato JSON para respaldo o análisis.
+Es simplemente un `dump` de todos los datos guardados en las tablas.
+
+```python
+from lib.orm.tables.table import Table
+
+Table( "CULT_BIENES" ).generate_snapshot( save_to="respaldo_cult_bienes.json" )
+Table( "CULT_BIENES_PICKLIST" ).generate_snapshot( save_to="respaldo_picklist.json" )
+```
+
+Tambien se puede generar un snapshot de toda la base de datos usando el indice de la misma.
+
+```python
+from lib.odbc.checkers import odbc_checkers
+from lib.odbc.connection import PyODBCConnection
+from lib.orm.tables.table_index import IGNORE_TABLES, TableIndex
+
+DB_PATH = "C:/MiRuta/A/INPHIS.mdb"
+
+# Comprueba si la base de datos de Microsoft Access es accesible y si están los drivers necesarios
+odbc_checkers( DB_PATH )
+
+# Conecta a la base de datos de Microsoft Access y obtiene los nombres de las tablas
+odbc_connection = PyODBCConnection( DB_PATH )
+microsoft_access_tables = [
+	table_info.table_name
+	for table_info in odbc_connection.cursor.tables( tableType='TABLE' )
+	if table_info.table_name not in IGNORE_TABLES
+]
+
+# Crea un indice de las tablas de la base de datos
+tables = TableIndex( microsoft_access_tables )
+
+tables.generate_snapshot( save_to="C:/MiRuta/A/respaldo_inphis.json" )
+```
+
+---
+
+## Guía Técnica para Desarrolladores
+
+### 1. Arquitectura General
+
+#### lib/orm/
+
+Toda la implementacion del ORM como sistema de creacion de queries (`Query Builder`), las clases de la tabla e índice,
+los tipos para las conversiones y utilidades del orm.
+
+- `Table`: Clase principal para manejo de tablas
+- `TableIndex`: Clase para manejo de multiples tablas
+- `Query`: Clase para manejo de queries, se usa como alternativa a `SQL`
+- `tipos`: Usados para conversiones en las queries (`type safety`)
+
+#### lib/odbc/
+
+- `PyODBCConnection`: Singleton, maneja conexión
+- `check_microsoft_access_drivers`, `check_microsoft_access_mdb_file`
+
+#### lib/interfaces/
+
+- `IModels`, `IFactory`: interfaces para consistencia entre modelos y factorías
+
+#### lib/inphis/
+
+Contiene tanto los modelos como las factorías de las tablas de la base de datos.
+
+Los modelos se usan para manejar los datos de las tablas de la base de datos, mientras que las factorías se usan para
+gestionar como interactuar con los modelos.
+
+En algunos casos las tablas están relacionadas, por lo que las factorías se
+encargan de gestionar estas relaciones y abstraer al usuario de la complejidad de las relaciones.
+
+- `models/`: Clases de modelos
+- `factory/`: Clases de factorías
