@@ -211,10 +211,10 @@ print( bienes )
 print( bienes[0] )
 
 # Consulta con Table
-Table( 'CULT_BIENES' )
-.select( SELECT_ALL )
-.where( CD_CODIGO=(None, '=', 'CM/001/001') )
-.execute( )
+Table( 'CULT_BIENES' )\
+    .select( SELECT_ALL )\
+    .where( CD_CODIGO=(None, '=', 'CM/001/001') )\
+    .execute( )
 ```
 
 ### 5. Actualizar un Registro
@@ -334,3 +334,26 @@ encargan de gestionar estas relaciones y abstraer al usuario de la complejidad d
 
 - `models/`: Clases de modelos
 - `factory/`: Clases de factorías
+
+---
+
+## Guia de uso de ChatGPT
+
+Para poder usar el chat de INPHIS, es necesaria una cuenta de pago de ChatGPT. 
+El chat es accesible públicamente a traves de este [enlace.](https://chatgpt.com/g/g-67cd7697ae388191a462f0011d23d7e4-inphis-tfg)
+
+Una vez en el chat simplemente pidele datos sobre un bien patrimonial en concreto o por regiones.
+El chat interara devolver siempre un .csv con todos los datos encontrados sobre los datos solicitados para que puedan ser importados a traves del ORM.
+
+### Replicar modelo
+
+Para poder replicar el modelo en caso de no tener ChatGPT premium o querer usar cualquier otro motor de Inteligencia Artificial,
+todos los datos usados para entrenar el modelo están disponibles en la carpeta `chatgpt`.
+
+En esta carpeta hay un `digest.txt`, `propmt.txt` y un `snapshot.json`. El `digest.txt` y `snapshot.json` continenen
+datos para que el modelo pueda entender como funciona la estructura de la base de datos. Mientras que el `prompt.txt` contiene
+
+Para poder replicar el modelo, simplemente pasale el `prompt.txt` y los dos ficheros `digest.txt` y `snapshot.json` a la IA
+y sera capaz de entender como funciona la base de datos y como interactuar con ella.
+
+> Nota: El modelo tiene que ser capaz de acceder a internet para poder buscar los datos de los bienes patrimoniales.
